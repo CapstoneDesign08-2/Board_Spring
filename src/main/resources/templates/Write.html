@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+
+    <title>글쓰기</title>
+</head>
+<body>
+<form method="POST" th:action="@{/write}">
+    <table>
+        <tr>
+            <div>
+                <input type="text" name="nick" placeholder="닉네임을 입력하세요."/>
+            </div>
+        </tr>
+        <tr>
+            <div>
+                <input type="text" name="subject" placeholder="제목을 입력하세요."/>
+            </div>
+        </tr>
+        <tr>
+            <div>
+                <input type="text" name="content" placeholder="내용을 입력하세요."/>
+            </div>
+        </tr>
+        <tr>
+            <td>
+                <a th:href="@{'/'}">
+                    <input type="button" value="뒤로" class="back"/>
+                </a>
+            </td>
+            <td>
+                <a>
+                    <input type="submit" value="작성" class="submit"/>
+                </a>
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+
+    <title>게시물</title>
+</head>
+<body>
+<table>
+    <tr>
+        <td>
+            번호
+        </td>
+        <td class="postViewId">
+            <p th:text="${post.id}">null</p>
+        </td>
+        <td>
+            닉네임
+        </td>
+        <td class="postViewNick">
+            <p th:text="${post.nick}">null</p>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            일시
+        </td>
+        <td class="postViewDate">
+            <p th:text="${post.date}">null</p>
+        </td>
+        <td>
+            조회수
+        </td>
+        <td class="postViewHit">
+            <p th:text="${post.hit}">null</p>
+        </td>
+    </tr>
+    <tr>
+        <td class="postViewSubject" colspan="4">
+            <p  th:text="${post.subject}">null</p>
+        </td>
+    </tr>
+    <tr>
+        <td class="postViewContent" colspan="4">
+            <p th:text="${post.content}">null</p>
+        </td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>
+            <a th:href="@{'/'}">
+                <input type="button" value="뒤로" class="back"/>
+            </a>
+        </td>
+        <td>
+            <a th:href="@{'/postview/modify/' + ${post.id}}">
+                <input type="button" value="수정" class="modify" />
+            </a>
+        </td>
+        <td>
+            <a th:href="@{'/postview/del/' + ${post.id}}" >
+                <input type="button" value="삭제" class="del"/>
+            </a>
+        </td>
+    </tr>
+</table>
+</body>
+</html>
