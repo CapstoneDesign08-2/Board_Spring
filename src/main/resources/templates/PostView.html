@@ -1,44 +1,44 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
 
     <title>게시물</title>
 </head>
 <body>
-<table>
-    <tr>
-        <td>
-            번호
-        </td>
+<table width="500">
+    <thead>
+    <tr style="background: #222; color: white;">
+        <th width="10%">번호</th>
+        <th width="40%">글쓴이</th>
+        <th width="40%">날짜</th>
+        <th width="10%">조회</th>
+    </tr>
+    </thead>
+    <tr align="center">
         <td class="postViewId">
             <p th:text="${post.id}">null</p>
-        </td>
-        <td>
-            닉네임
         </td>
         <td class="postViewNick">
             <p th:text="${post.nick}">null</p>
         </td>
-    </tr>
-    <tr>
-        <td>
-            일시
-        </td>
         <td class="postViewDate">
             <p th:text="${post.date}">null</p>
-        </td>
-        <td>
-            조회수
         </td>
         <td class="postViewHit">
             <p th:text="${post.hit}">null</p>
         </td>
     </tr>
+    <tr style="background: #222; color: white;">
+        <th colspan="4">제목</th>
+    </tr>
     <tr>
-        <td class="postViewSubject" colspan="4">
-            <p  th:text="${post.subject}">null</p>
+        <td class="postViewSubject" colspan="4" style="height: 5%;">
+            <p th:text="${post.subject}">null</p>
         </td>
+    </tr>
+    <tr style="background: #222; color: white;">
+        <th colspan="4">내용</th>
     </tr>
     <tr>
         <td class="postViewContent" colspan="4">
@@ -55,11 +55,11 @@
         </td>
         <td>
             <a th:href="@{'/postview/modify/' + ${post.id}}">
-                <input type="button" value="수정" class="modify" />
+                <input type="button" value="수정" class="modify"/>
             </a>
         </td>
         <td>
-            <a th:href="@{'/postview/del/' + ${post.id}}" >
+            <a th:href="@{'/postview/del/' + ${post.id}}">
                 <input type="button" value="삭제" class="del"/>
             </a>
         </td>

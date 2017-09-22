@@ -7,22 +7,25 @@
 </head>
 <body>
 <form method="POST" th:action="@{/write}">
+    <table width="500">
+        <tr>
+            <div>
+                <input type="text" name="nick" size="40" placeholder="닉네임을 입력하세요." th:value="${post.nick}"/>
+            </div>
+        </tr>
+        <tr>
+            <div>
+                <input type="text" name="subject" size="65" placeholder="제목을 입력하세요." th:value="${post.subject}"/>
+            </div>
+        </tr>
+        <tr>
+            <div>
+                <input type="text" name="content" size="65" style="height: 200px" placeholder="내용을 입력하세요."
+                       th:value="${post.content}"/>
+            </div>
+        </tr>
+    </table>
     <table>
-        <tr>
-            <div>
-                <input type="text" name="nick" placeholder="닉네임을 입력하세요." th:value="${post.nick}"/>
-            </div>
-        </tr>
-        <tr>
-            <div>
-                <input type="text" name="subject" placeholder="제목을 입력하세요." th:value="${post.subject}"/>
-            </div>
-        </tr>
-        <tr>
-            <div>
-                <input type="text" name="content" placeholder="내용을 입력하세요." th:value="${post.content}"/>
-            </div>
-        </tr>
         <tr>
             <td>
                 <a th:href="@{'/postview/' + ${post.id}}">
