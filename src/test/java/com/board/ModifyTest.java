@@ -1,8 +1,8 @@
 package com.board;
 
 import org.apache.commons.lang3.SystemUtils;
-import org.junit.After;
-import org.junit.Before;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.*;
@@ -42,8 +42,8 @@ public class ModifyTest {
     static Connection conn;
     static Statement stmt;
 
-    @Before
-    public void setUp() throws Exception {
+    @BeforeClass
+    public static void setUpBeforeClass() throws Exception {
         File path = new File("");
         System.out.println(path.getAbsolutePath());
 
@@ -56,9 +56,8 @@ public class ModifyTest {
         try {
             conn = DriverManager.getConnection(connectionURL, username, password);
             stmt = conn.createStatement();
-        }
-        catch (SQLException e) {
-            throw new SQLException("$DB가 연결 되지 않았습니다.$");
+        } catch (SQLException e) {
+            throw new SQLException("$DB가 연결 되지 않았습니다.\n#");
         }
 
         Capabilities caps = new DesiredCapabilities();
@@ -90,16 +89,14 @@ public class ModifyTest {
             driver.get(baseURL);
 
             WebElement td = driver.findElement(By.name("nick"));
-            assertEquals("$닉네임 default 값이 일치하지 않습니다.$", "TEST", td.getAttribute("value"));
+            assertEquals("$주소 '/postview/modify/{id}'로 이동시 게시물의 닉네임 default 값이 들어가있지 않습니다.\n#", "TEST", td.getAttribute("value"));
             td = driver.findElement(By.name("subject"));
-            assertEquals("$글 제목 default 값이 일치하지 않습니다.$", "TESTSUBJECT", td.getAttribute("value"));
+            assertEquals("$주소 '/postview/modify/{id}'로 이동시 게시물의 제목 default 값이 들어가있지 않습니다.\n#", "TESTSUBJECT", td.getAttribute("value"));
             td = driver.findElement(By.name("content"));
-            assertEquals("$글 내용 default 값이 일치하지 않습니다.$", "TESTCONTENT", td.getAttribute("value"));
-        }
-        catch (NoSuchElementException e) {
-            throw new NoSuchElementException("$html이 제대로 호출되지 않았습니다.$");
-        }
-        finally {
+            assertEquals("$주소 '/postview/modify/{id}'로 이동시 게시물의 내용 default 값이 들어가있지 않습니다.\n#", "TESTCONTENT", td.getAttribute("value"));
+        } catch (NoSuchElementException e) {
+            throw new NoSuchElementException("$Modify.html이 제대로 호출되지 않았습니다.\n#");
+        } finally {
             query = "TRUNCATE TABLE post;";
             stmt.executeUpdate(query);
         }
@@ -125,18 +122,16 @@ public class ModifyTest {
             driver.findElement(By.tagName("form")).submit();
 
             WebElement td = driver.findElement(By.className("postViewId"));
-            assertEquals("$수정된 글 번호가 일치하지 않습니다.$", "2", td.getText());
+            assertEquals("$주소 '/postview/modify/{id}'에서 수정된 게시물의 번호가 적용되지 않았습니다.\n#", "2", td.getText());
             td = driver.findElement(By.className("postViewNick"));
-            assertEquals("$수정된 닉네임이 일치하지 않습니다.$", "MODIFY_NICK", td.getText());
+            assertEquals("$주소 '/postview/modify/{id}'에서 수정된 게시물의 닉네임이 적용되지 않았습니다.\n#", "MODIFY_NICK", td.getText());
             td = driver.findElement(By.className("postViewSubject"));
-            assertEquals("$수정된 글 제목이 일치하지 않습니다.$", "MODIFY_SUBJECT", td.getText());
+            assertEquals("$주소 '/postview/modify/{id}'에서 수정된 게시물의 제목이 적용되지 않았습니다.\n#", "MODIFY_SUBJECT", td.getText());
             td = driver.findElement(By.className("postViewContent"));
-            assertEquals("$수정된 글 내용이 일치하지 않습니다.$", "MODIFY_CONTENT", td.getText());
-        }
-        catch (NoSuchElementException e) {
-            throw new NoSuchElementException("$html이 제대로 호출되지 않았습니다.$");
-        }
-        finally {
+            assertEquals("$주소 '/postview/modify/{id}'에서 수정된 게시물의 내용이 적용되지 않았습니다.\n#", "MODIFY_CONTENT", td.getText());
+        } catch (NoSuchElementException e) {
+            throw new NoSuchElementException("$Modify.html이 제대로 호출되지 않았습니다.\n#");
+        } finally {
             query = "TRUNCATE TABLE post;";
             stmt.executeUpdate(query);
         }
@@ -154,12 +149,10 @@ public class ModifyTest {
 
             driver.findElement(By.className("back")).click();
 
-            assertEquals("$주소가 제대로 호출되지 않았습니다.$", "http://localhost:" + port + "/postview/2", driver.getCurrentUrl());
-        }
-        catch (NoSuchElementException e) {
-            throw new NoSuchElementException("$html이 제대로 호출되지 않았습니다.$");
-        }
-        finally {
+            assertEquals("$주소 '/postview/modify/{id}'가 주소 '/postview/{id}'로 뒤로가기 버튼이 제대로 수행되지 않았습니다.\n#", "http://localhost:" + port + "/postview/2", driver.getCurrentUrl());
+        } catch (NoSuchElementException e) {
+            throw new NoSuchElementException("$Modify.html이 제대로 호출되지 않았습니다.\n#");
+        } finally {
             query = "TRUNCATE TABLE post;";
             stmt.executeUpdate(query);
         }
@@ -178,12 +171,10 @@ public class ModifyTest {
             driver.findElement(By.name("nick")).clear();
             driver.findElement(By.tagName("form")).submit();
 
-            assertEquals("$에러페이지가 제대로 호출되지 않았습니다.$", "Error", driver.getTitle());
-        }
-        catch (NoSuchElementException e) {
-            throw new NoSuchElementException("$html이 제대로 호출되지 않았습니다.$");
-        }
-        finally {
+            assertEquals("$주소 '/postview/modify/{id}'에서 게시물의 닉네임에 공백이 들어간채로 작성시 'ErrorPage.html'이 제대로 호출되지 않았습니다.\n#", "Error", driver.getTitle());
+        } catch (NoSuchElementException e) {
+            throw new NoSuchElementException("$Modify.html이 제대로 호출되지 않았습니다.\n#");
+        } finally {
             query = "TRUNCATE TABLE post;";
             stmt.executeUpdate(query);
         }
@@ -202,19 +193,17 @@ public class ModifyTest {
             driver.findElement(By.name("subject")).clear();
             driver.findElement(By.tagName("form")).submit();
 
-            assertEquals("$에러페이지가 제대로 호출되지 않았습니다.$", "Error", driver.getTitle());
-        }
-        catch (NoSuchElementException e) {
-            throw new NoSuchElementException("$html이 제대로 호출되지 않았습니다.$");
-        }
-        finally {
+            assertEquals("$주소 '/postview/modify/{id}'에서 게시물의 제목에 공백이 들어간채로 작성시 'ErrorPage.html'이 제대로 호출되지 않았습니다.\n#", "Error", driver.getTitle());
+        } catch (NoSuchElementException e) {
+            throw new NoSuchElementException("$Modify.html이 제대로 호출되지 않았습니다.\n#");
+        } finally {
             query = "TRUNCATE TABLE post;";
             stmt.executeUpdate(query);
         }
     }
 
-    @After
-    public void tearDown() {
+    @AfterClass
+    public static void tearDownAfterClass() {
         driver.quit();
     }
 }
